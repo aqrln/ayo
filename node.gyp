@@ -141,6 +141,11 @@
       }, {
         'use_openssl_def': 0,
       }],
+      [ 'use_sse42=="true"', {
+        'picohttpparser_target_name': 'picohttpparser-sse4.2',
+      }, {
+        'picohttpparser_target_name': 'picohttpparser',
+      }]
     ],
   },
 
@@ -151,7 +156,7 @@
 
       'dependencies': [
         'node_js2c#host',
-        'deps/picohttpparser/picohttpparser.gyp:picohttpparser',
+        'deps/picohttpparser/picohttpparser.gyp:<(picohttpparser_target_name)',
         'deps/nghttp2/nghttp2.gyp:nghttp2'
       ],
 

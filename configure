@@ -485,6 +485,12 @@ parser.add_option('--without-bundled-v8',
     help='do not use V8 includes from the bundled deps folder. ' +
          '(This mode is not officially supported for regular applications)')
 
+parser.add_option('--disable-sse4.2',
+    action='store_true',
+    dest='disable_sse42',
+    default=False,
+    help='disable using SSE4.2 instruction set (only applies to x64 target)')
+
 # Create compile_commands.json in out/Debug and out/Release.
 parser.add_option('-C',
     action='store_true',
@@ -795,6 +801,7 @@ def configure_node(o):
 
   host_arch = host_arch_win() if os.name == 'nt' else host_arch_cc()
   target_arch = options.dest_cpu or host_arch
+  use_sse42 = target_arch == 'x64' and not options.disable_sse42
   # ia32 is preferred by the build tools (GYP) over x86 even if we prefer the latter
   # the Makefile resets this to x86 afterward
   if target_arch == 'x86':
@@ -802,6 +809,7 @@ def configure_node(o):
   o['variables']['host_arch'] = host_arch
   o['variables']['target_arch'] = target_arch
   o['variables']['node_byteorder'] = sys.byteorder
+  o['variables']['use_sse42'] = b(use_sse42)
 
   cross_compiling = (options.cross_compiling
                      if options.cross_compiling is not None
