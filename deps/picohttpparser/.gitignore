@@ -1,0 +1,17 @@
+/out/
+*.mk
+*.Makefile
+
+*.xcodeproj
+gyp-mac-tool
+
+*.suo
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.opensdf
+*.ncrunchsolution*
+*.sdf
+*.vsp
+*.psess
