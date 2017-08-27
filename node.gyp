@@ -13,7 +13,6 @@
     'force_dynamic_crt%': 0,
     'node_module_version%': '',
     'node_shared_zlib%': 'false',
-    'node_shared_http_parser%': 'false',
     'node_shared_cares%': 'false',
     'node_shared_libuv%': 'false',
     'node_use_openssl%': 'true',
@@ -152,6 +151,7 @@
 
       'dependencies': [
         'node_js2c#host',
+        'deps/picohttpparser/picohttpparser.gyp:picohttpparser',
         'deps/nghttp2/nghttp2.gyp:nghttp2'
       ],
 
@@ -164,6 +164,7 @@
         'tools/msvs/genfiles',
         'deps/uv/src/ares',
         '<(SHARED_INTERMEDIATE_DIR)', # for node_natives.h
+        'deps/picohttpparser',
         'deps/nghttp2/lib/includes'
       ],
 
@@ -261,7 +262,7 @@
         'src/tracing/trace_event.h'
         'src/util.h',
         'src/util-inl.h',
-        'deps/http_parser/http_parser.h',
+        'deps/picohttpparser/picohttpparser.h',
         'deps/v8/include/v8.h',
         'deps/v8/include/v8-debug.h',
         # javascript files to make for an even more pleasant IDE experience
@@ -683,11 +684,6 @@
             [ 'node_shared_openssl=="false" and node_shared=="false"', {
               'dependencies': [
                 'deps/openssl/openssl.gyp:openssl'
-              ]
-            }],
-            [ 'node_shared_http_parser=="false"', {
-              'dependencies': [
-                'deps/http_parser/http_parser.gyp:http_parser'
               ]
             }],
             [ 'node_shared_libuv=="false"', {
