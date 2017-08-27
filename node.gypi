@@ -331,5 +331,13 @@
     [ 'OS=="sunos"', {
       'ldflags': [ '-Wl,-M,/usr/lib/ld/map.noexstk' ],
     }],
+    [ 'use_sse42=="true"', {
+      'cflags':    [ '-msse4.2' ],
+      'cflags_cc': [ '-msse4.2' ],
+      'xcode_settings': {
+        'OTHER_CFLAGS':         [ '-msse4.2' ],
+        'OTHER_CPLUSPLUSFLAGS': [ '-msse4.2' ],
+      },
+    }],
   ],
 }
